@@ -1,5 +1,13 @@
-<div class="container">
-  <h1 class="title">
-    {{ 'PAGES.HOME.TITLE' | translate }}
-  </h1>
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <input type="file" #file ngModel name="directory" webkitdirectory directory (change)="onChange(file.files)"/>
+    <input type="submit" value="let's go !"/>
+    <input type="button" (click)="getPDF()" value="get pdf :)"/>
+  </form>
+  
+
+<div class="container" id="images">
+  
+  <app-filediv *ngFor="let file of files" filename="{{file}}" class="file">
+  
+  </app-filediv>
 </div>

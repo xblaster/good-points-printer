@@ -6,6 +6,7 @@ let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
 
+
 try {
   require('dotenv').config();
 } catch {
@@ -76,3 +77,43 @@ try {
   // Catch Error
   // throw e;
 }
+
+
+
+
+// In main process.
+const {ipcMain} = require('electron');
+
+ipcMain.on('list-dir', (event, arg) => {
+  const fs = require('fs');
+  console.log(arg);
+  fs.readdir(arg, function(err, dir) {
+    const res = [];
+    // event.sender.send('list-dir-reply', dir);
+    // event.sender.send('list-dir-reply', err);
+    for (const filePath of dir) {
+      res.push(arg + '\\' + filePath);
+    }
+    event.sender.send('list-dir-reply', res);
+
+    // event.sender.send('list-dir-reply', res);
+  });
+});
+
+ipcMain.on('get-base64-img', (event, img) => {
+  const fs = require('fs');
+  console.log(img);
+  fs.readFile(img, function(err, data) {
+    event.sender.send('get-base64-img-reply', {
+      filename: img,
+      content: Buffer.from(data).toString('base64')
+    });
+  });
+});
+
+
+
+ipcMain.on('synchronous-message', (event, arg) => {
+  console.log(arg); // prints "ping"
+  event.returnValue = 'pong';
+});

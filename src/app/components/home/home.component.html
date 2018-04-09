@@ -7,7 +7,7 @@
 
 <div class="container" id="images">
   
-  <app-filediv *ngFor="let file of files" filename="{{file}}" class="file">
+  <app-filediv *ngFor="let file of files | async" filename="{{file}}" class="file">
   
   </app-filediv>
 </div>

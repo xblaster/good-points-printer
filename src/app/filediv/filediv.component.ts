@@ -1,5 +1,5 @@
 import { Input, Component, OnInit } from '@angular/core';
-
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 const { ipcRenderer } = window.require('electron');
 
 @Component({
@@ -10,20 +10,18 @@ const { ipcRenderer } = window.require('electron');
 export class FiledivComponent implements OnInit {
 
   constructor() {
+    this.content = new BehaviorSubject(null);
     ipcRenderer.on('get-base64-img-reply', (event, arg) => {
       if (arg.filename === this.filename) {
-        this.content = arg.content;
+        this.content.next(arg.content);
       }
     });
    }
 
   @Input() filename: String;
-  content: String = null;
+  content: BehaviorSubject<String>;
   ngOnInit() {
     ipcRenderer.send('get-base64-img', this.filename);
   }
-
-
-  
 
 }

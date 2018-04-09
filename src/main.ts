@@ -4,6 +4,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { AppConfig } from './app/app.config';
 
+require('events').EventEmitter.prototype._maxListeners = 250;
+
 if (AppConfig.production) {
   enableProdMode();
 }

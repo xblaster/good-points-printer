@@ -1,7 +1,7 @@
 // const fs = require('fs');
 // const remoteElec = require('electron').remote;
 // const electroFs = remoteElec.require('fs');
-
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 const { ipcRenderer } = window.require('electron');
 
 import { Component, OnInit } from '@angular/core';
@@ -16,14 +16,16 @@ import * as jsPDF from 'jspdf';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    this.files = new BehaviorSubject([]);
+   }
 
-  public files: any[] = [];
+  public files: BehaviorSubject<any[]>;
 
   ngOnInit() {
     ipcRenderer.on('list-dir-reply', (event, arg) => {
       console.log(arg);
-      this.files = arg;
+      this.files.next(arg);
     });
   }
 
@@ -48,7 +50,7 @@ export class HomeComponent implements OnInit {
     console.log(jsPDF);
     const doc = new jsPDF();
     doc.fromHTML(document.getElementById('images'), 0, 0, {
-      'width': 800, // max width of content on PDF
+      'width': 1400, // max width of content on PDF
     }, function(bla) {   doc.save('saveInCallback.pdf');
    }, 12);
     // doc.save('a4.pdf');

@@ -1,11 +1,11 @@
 {
-  "name": "angular-electron",
-  "version": "3.1.0",
-  "description": "Angular 5 with Electron (Typescript + SASS + Hot Reload)",
+  "name": "good-points-printer",
+  "version": "0.8.0",
+  "description": "create good points",
   "homepage": "https://github.com/maximegris/angular-electron",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    "name": "Jérôme WAX",
+    "email": "nospam@lo2k.net"
   },
   "keywords": [
     "angular",

@@ -47,12 +47,13 @@ export class HomeComponent implements OnInit {
   }
 
   getPDF() {
-    console.log(jsPDF);
+    /*console.log(jsPDF);
     const doc = new jsPDF();
     doc.fromHTML(document.getElementById('images'), 0, 0, {
       'width': 1400, // max width of content on PDF
     }, function(bla) {   doc.save('saveInCallback.pdf');
-   }, 12);
+   }, 12);*/
+   window.print();
     // doc.save('a4.pdf');
   }
 }

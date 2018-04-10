@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
-import {NgForm} from '@angular/forms';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 describe('HomeComponent', () => {

@@ -4,10 +4,11 @@
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 const { ipcRenderer } = window.require('electron');
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import {NgForm} from '@angular/forms';
 
 import * as jsPDF from 'jspdf';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-home',
@@ -16,16 +17,21 @@ import * as jsPDF from 'jspdf';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() {
+  constructor(private zone: NgZone) {
     this.files = new BehaviorSubject([]);
+    this.observableFiles = this.files.asObservable();
+    this.files.subscribe(function() {});
+    this.zone = zone;
    }
 
   public files: BehaviorSubject<any[]>;
+  public observableFiles: Observable<any[]>;
 
   ngOnInit() {
     ipcRenderer.on('list-dir-reply', (event, arg) => {
       console.log(arg);
       this.files.next(arg);
+      this.zone.run(() => {});
     });
   }
 

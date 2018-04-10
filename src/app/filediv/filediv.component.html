@@ -1,6 +1,6 @@
 <span>
 
-   <p *ngIf="!(content | async)" >chargement de {{filename}}</p>
-  <img *ngIf="(content | async)"  [src]="'data:image/jpeg;base64,'+ (content|async)"  />
+   <p *ngIf="!(observableContent | async)" >chargement de {{filename}}</p>
+  <img *ngIf="(observableContent | async)"  [src]="'data:image/jpeg;base64,'+ (observableContent|async)"  />
   <div class="plus">+1</div>
 </span>
